@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../firebase";
-import { setDoc, updateDoc, doc, Timestamp } from "firebase/firestore";
+import { updateDoc, doc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -29,11 +29,7 @@ const Login = () => {
     try {
       const result = await signInWithEmailAndPassword(auth, email, password);
 
-      await setDoc(doc(db, "users", result.user.uid), {
-        uid: result.user.uid,
-        name,
-        email,
-        createdAt: Timestamp.fromDate(new Date()),
+      await updateDoc(doc(db, "users", result.user.uid), {
         isOnline: true,
       });
       setData({
