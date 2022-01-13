@@ -14,7 +14,7 @@ const Login = () => {
 
   const history = useNavigate();
 
-  const { name, email, password, error, loading } = data;
+  const { email, password, error, loading } = data;
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
