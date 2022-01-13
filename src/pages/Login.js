@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../firebase";
-import { setDoc, doc, Timestamp } from "firebase/firestore";
+import { setDoc, updateDoc, doc, Timestamp } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
-const Register = () => {
+const Login = () => {
   const [data, setData] = useState({
-    name: "",
     email: "",
     password: "",
     error: null,
@@ -24,15 +23,12 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setData({ ...data, error: null, loading: true });
-    if (!name || !email || !password) {
+    if (!email || !password) {
       setData({ ...data, error: "All fields are required" });
     }
     try {
-      const result = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      const result = await signInWithEmailAndPassword(auth, email, password);
+
       await setDoc(doc(db, "users", result.user.uid), {
         uid: result.user.uid,
         name,
@@ -41,7 +37,6 @@ const Register = () => {
         isOnline: true,
       });
       setData({
-        name: "",
         email: "",
         password: "",
         error: null,
@@ -55,12 +50,8 @@ const Register = () => {
 
   return (
     <section>
-      <h3>Create An Account</h3>
+      <h3>Log into your Account</h3>
       <form className="form" onSubmit={handleSubmit}>
-        <div className="input_container">
-          <label htmlFor="name">Name</label>
-          <input type="text" name="name" value={name} onChange={handleChange} />
-        </div>
         <div className="input_container">
           <label htmlFor="email">Email</label>
           <input
@@ -82,7 +73,7 @@ const Register = () => {
         {error ? <p className="error">{error}</p> : null}
         <div className="btn_container">
           <button className="btn" disabled={loading}>
-            {loading ? "Creating ..." : "Register"}
+            {loading ? "Logging in..." : "Login"}
           </button>
         </div>
       </form>
@@ -90,4 +81,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
