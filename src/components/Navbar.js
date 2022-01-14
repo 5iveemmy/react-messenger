@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { auth } from "../firebase";
 
 function Navbar() {
   return (
@@ -8,8 +9,17 @@ function Navbar() {
         <Link to="/">Messenger</Link>
       </h3>
       <div>
-        <Link to="Register">Register</Link>
-        <Link to="login">Login</Link>
+        {auth.currentUser ? (
+          <>
+            <Link to="/profile">Profile</Link>
+            <button className="btn">Logout</button>
+          </>
+        ) : (
+          <>
+            <Link to="Register">Register</Link>
+            <Link to="login">Login</Link>
+          </>
+        )}
       </div>
     </nav>
   );
