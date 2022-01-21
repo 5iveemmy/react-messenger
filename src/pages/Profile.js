@@ -3,7 +3,7 @@ import Camera from "../components/svg/Camera";
 import Img from "../image1.jpg";
 import { storage, db, auth } from "../firebase";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
-import { getDoc, doc } from "firebase/firestore";
+import { getDoc, doc, updateDoc } from "firebase/firestore";
 
 const Profile = () => {
   const [img, setImg] = useState("");
@@ -22,8 +22,19 @@ const Profile = () => {
           storage,
           `avatar/${new Date().getTime()} - ${img.name}`
         );
-        const snap = await uploadBytes(imgRef, img);
-        console.log(snap.ref.fullPath);
+        try {
+          const snap = await uploadBytes(imgRef, img);
+          const url = await getDownloadURL(ref(storage, snap.ref.fullPath));
+
+          await updateDoc(doc(db, "users", auth.currentUser.uid), {
+            avatar: url,
+            avatarPath: snap.ref.fullPath,
+          });
+          console.log(url);
+          setImg("");
+        } catch (err) {
+          console.log(err.message);
+        }
       };
       uploadImg();
     }
