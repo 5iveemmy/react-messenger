@@ -39,11 +39,11 @@ const Profile = () => {
       uploadImg();
     }
   }, [img]);
-  return (
+  return user ? (
     <section>
       <div className="profile_container">
         <div className="img_container">
-          <img src={Img} alt="avatar" />
+          <img src={user.avatar || img} alt="avatar" />
           <div className="overlay">
             <div>
               <label htmlFor="photo">
@@ -60,14 +60,14 @@ const Profile = () => {
           </div>
         </div>
         <div className="text_container">
-          <h3>User name</h3>
-          <p>user email</p>
+          <h3>{user.name}</h3>
+          <p>{user.email}</p>
           <hr />
           <small>Joined on: ...</small>
         </div>
       </div>
     </section>
-  );
+  ) : null;
 };
 
 export default Profile;
