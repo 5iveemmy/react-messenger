@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import AuthProvider from "./context/auth";
 import PrivateRoute from "./components/PrivateRoute";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -16,8 +17,8 @@ function App() {
         <Routes>
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
-          {/* <PrivateRoute path="/here" component={Home} /> */}
           <Route exact path="/" element={<PrivateRoute />}>
+            <Route exact path="/profile" element={<Profile />} />
             <Route exact path="/" element={<Home />} />
           </Route>
         </Routes>
