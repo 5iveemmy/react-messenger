@@ -14,6 +14,12 @@ const MessageForm = () => {
         accept="image/*"
         style={{ display: "none" }}
       />
+      <div>
+        <input type="text" placeholder="Enter message" />
+      </div>
+      <div>
+        <button className="btn">Send</button>
+      </div>
     </form>
   );
 };

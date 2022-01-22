@@ -33,7 +33,7 @@ function Home() {
           <User key={user.uid} user={user} selectUser={selectUser} />
         ))}
       </div>
-      <div className="message_container">
+      <div className="messages_container">
         {chat ? (
           <>
             <div className="messages_user">
