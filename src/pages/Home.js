@@ -20,12 +20,14 @@ function Home() {
     });
     return () => unsub();
   }, []);
-  console.log(users);
+  const selectUser = (user) => {
+    console.log(user);
+  };
   return (
     <div className="home_container">
       <div className="users_container">
         {users.map((user) => (
-          <User key={user.uid} user={user} />
+          <User key={user.uid} user={user} selectUser={selectUser} />
         ))}
       </div>
     </div>
