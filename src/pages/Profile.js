@@ -10,7 +10,7 @@ import {
 } from "firebase/storage";
 import { getDoc, doc, updateDoc } from "firebase/firestore";
 import Delete from "../components/svg/Delete";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const [img, setImg] = useState("");
