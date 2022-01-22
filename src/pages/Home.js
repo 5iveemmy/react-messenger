@@ -5,6 +5,7 @@ import User from "../components/User";
 
 function Home() {
   const [users, setUsers] = useState([]);
+  const [chat, setChat] = useState("");
 
   useEffect(() => {
     const usersRef = collection(db, "users");
@@ -21,6 +22,7 @@ function Home() {
     return () => unsub();
   }, []);
   const selectUser = (user) => {
+    setChat(user);
     console.log(user);
   };
   return (
@@ -29,6 +31,15 @@ function Home() {
         {users.map((user) => (
           <User key={user.uid} user={user} selectUser={selectUser} />
         ))}
+      </div>
+      <div className="message_container">
+        {chat ? (
+          <div className="messages_user">
+            <h3>{chat.name}</h3>
+          </div>
+        ) : (
+          <h3 className="no_conv">Select user to start conversation</h3>
+        )}
       </div>
     </div>
   );
