@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { db, auth } from "../firebase";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import User from "../components/User";
+import MessageForm from "../components/MessageForm";
 
 function Home() {
   const [users, setUsers] = useState([]);
@@ -34,9 +35,12 @@ function Home() {
       </div>
       <div className="message_container">
         {chat ? (
-          <div className="messages_user">
-            <h3>{chat.name}</h3>
-          </div>
+          <>
+            <div className="messages_user">
+              <h3>{chat.name}</h3>
+            </div>
+            <MessageForm />
+          </>
         ) : (
           <h3 className="no_conv">Select user to start conversation</h3>
         )}
