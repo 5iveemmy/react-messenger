@@ -1,13 +1,14 @@
 import React from "react";
 import Attachment from "./svg/Attachment";
 
-const MessageForm = () => {
+const MessageForm = ({ handleSubmit, text, setText, setImg }) => {
   return (
-    <form className="message_form">
+    <form className="message_form" onSubmit={handleSubmit}>
       <label htmlFor="img">
         <Attachment />
       </label>
       <input
+        onChange={(e) => setImg(e.target.files[0])}
         type="file"
         name=""
         id="img"
@@ -15,7 +16,12 @@ const MessageForm = () => {
         style={{ display: "none" }}
       />
       <div>
-        <input type="text" placeholder="Enter message" />
+        <input
+          type="text"
+          placeholder="Enter message"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
       </div>
       <div>
         <button className="btn">Send</button>
