@@ -166,7 +166,6 @@ section .form {
 .offline {
   background: var(--color-5);
 }
-
 .messages_container {
   position: relative;
   width: 100%;

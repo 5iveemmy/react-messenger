@@ -10,7 +10,6 @@ const MessageForm = ({ handleSubmit, text, setText, setImg }) => {
       <input
         onChange={(e) => setImg(e.target.files[0])}
         type="file"
-        name=""
         id="img"
         accept="image/*"
         style={{ display: "none" }}

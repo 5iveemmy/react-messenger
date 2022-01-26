@@ -6,15 +6,16 @@ import { updateDoc, doc } from "firebase/firestore";
 import { AuthContext } from "../context/auth";
 import { useNavigate } from "react-router-dom";
 
-function Navbar() {
-  const navigate = useNavigate();
+const Navbar = () => {
+  const history = useNavigate();
   const { user } = useContext(AuthContext);
+
   const handleSignout = async () => {
     await updateDoc(doc(db, "users", auth.currentUser.uid), {
       isOnline: false,
     });
     await signOut(auth);
-    navigate("/login");
+    history("/login");
   };
   return (
     <nav>
@@ -31,13 +32,13 @@ function Navbar() {
           </>
         ) : (
           <>
-            <Link to="Register">Register</Link>
-            <Link to="login">Login</Link>
+            <Link to="/register">Register</Link>
+            <Link to="/login">Login</Link>
           </>
         )}
       </div>
     </nav>
   );
-}
+};
 
 export default Navbar;
